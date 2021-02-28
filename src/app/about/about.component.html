@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row text-center">
+    <div class="col-lg-4">
+      {{ title }}
+      <form  [formGroup]='firstForm' (ngSubmit)="onSubmit()">
+      <!-- {{ firstForm.value | json }}<br> -->
+      
+        <mat-form-field appearance="fill" >
+            <mat-label  >Input</mat-label>
+            <input matInput id='input1'  formControlName='name' placeholder="Enter Your Name" >
+            <mat-error *ngIf="firstForm.get('name').errors?.required">Name Required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+          <mat-label  >Email</mat-label>
+          <input matInput type='email' placeholder="example@email.com"  formControlName='email' >
+          <mat-error *ngIf="firstForm.get('email').errors?.required">Email Required</mat-error>
+          <mat-error *ngIf="firstForm.get('email').errors?.email">Enter Valid Email address</mat-error>
+          
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label >Select</mat-label>
+          <mat-select name='select'  formControlName='select'>
+            <mat-option  *ngFor='let d of data'  [value]='d'  >{{ d }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+       
+        <mat-form-field appearance="fill">
+          <mat-label >Password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName='password'>
+          
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          
+          <mat-error *ngIf="firstForm.get('password').errors?.required">Password Required</mat-error>
+          <mat-error *ngIf="firstForm.get('password').errors?.minLength">Password must have at least 8 char</mat-error>
+          <mat-error *ngIf="firstForm.get('password').errors?.pattern">Password must have least one digit,one lowercase,one uppercase ,one number</mat-error>
+          
+
+        </mat-form-field>
+        
+        <br>
+      
+        <div>
+          <button mat-raised-button type="submit"  color="primary">Submit</button>
+        </div>
+        
+
+
+      </form>
+    </div>
+  </div>
+</div>
